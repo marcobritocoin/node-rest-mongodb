@@ -16,7 +16,7 @@ const Usuario = {
 }
 
 app.get('/', function(req, res) {
-    res.send(JSON.stringify(Usuario));
+    res.send('Mandanga Style');
 });
 
 app.get('/usuario', function(req, res) {
