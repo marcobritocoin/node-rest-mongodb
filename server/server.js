@@ -2,8 +2,10 @@ require('./config/config')
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
-
+// Middlewares
+// app.use();
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -11,39 +13,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-const Usuario = {
-    nombre: 'Marco Brito'
-}
+// Importo las rutas del Usuario
+app.use(require('./routes/usuario'));
 
 app.get('/', function(req, res) {
     res.send('Mandanga Style');
 });
 
-app.get('/usuario', function(req, res) {
-    res.send('Get usuario');
+/**
+ *   Conexión con la BBDD de MongoDB con Mongoose
+ */
+
+mongoose.connect(process.env.URLDB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true
+}, () => {
+    console.log('Conexión exitosa con la BBDD!');
 });
 
-app.post('/usuario', function(req, res) {
-    const body = req.body;
-
-    if (body.nombre === undefined) {
-        res.status(400).json({
-            ok: false,
-            mensaje: 'El nombre es necesario'
-        });
-    } else {
-        res.json({ persona: body });
-    }
-
-});
-
-app.put('/usuario/:id', function(req, res) {
-    const idx = req.params.id;
-    res.json({ id: idx });
-});
-
-app.delete('/usuario', function(req, res) {
-    res.send('Delete usuario');
+mongoose.connection.on('error', function(err) {
+    console.log('Error de conexión con la BBDD: ' + err);
 });
 
 app.listen(process.env.PORT, () => {
