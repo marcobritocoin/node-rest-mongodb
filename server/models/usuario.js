@@ -42,6 +42,7 @@ let usuarioSchema = new Schema({
 });
 
 // Validacion para quitar el atributo password del objecto
+// Excluir el Password del Modelo
 usuarioSchema.methods.toJSON = function() {
     let user = this;
     let userObject = user.toObject();

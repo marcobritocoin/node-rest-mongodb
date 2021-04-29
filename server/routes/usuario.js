@@ -3,9 +3,20 @@ const Usuario = require('../models/usuario');
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
 
+const { tokenVerify, AdminRoleVerify } = require('../middlewares/authentication');
+
 const app = express();
 
-app.get('/usuario', function(req, res) {
+app.get('/usuario', [tokenVerify, AdminRoleVerify], (req, res) => {
+
+    // // Obtener los datos del usuario por PAYLOAD
+    // // Validado por el Middelware
+    // return res.json({
+    //     usuario: req.usuario,
+    //     nombre: req.usuario.nombre,
+    //     email: req.usuario.email,
+    //     role: req.usuario.role
+    // });
 
     // Control de paginacion
     let desde = req.query.desde || 0;
@@ -37,7 +48,7 @@ app.get('/usuario', function(req, res) {
         });
 });
 
-app.post('/usuario', function(req, res) {
+app.post('/usuario', [tokenVerify, AdminRoleVerify], (req, res) => {
     let body = req.body;
 
     let usuario = new Usuario({
@@ -66,7 +77,7 @@ app.post('/usuario', function(req, res) {
 
 });
 
-app.put('/usuario/:id', function(req, res) {
+app.put('/usuario/:id', [tokenVerify, AdminRoleVerify], (req, res) => {
     const id = req.params.id;
 
     // Validando con la libreria Underscore
@@ -96,7 +107,7 @@ app.put('/usuario/:id', function(req, res) {
 
 });
 
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', [tokenVerify, AdminRoleVerify], (req, res) => {
     const id = req.params.id;
 
     // ===============================================

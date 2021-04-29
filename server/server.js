@@ -4,8 +4,10 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-// Middlewares
-// app.use();
+
+/**
+ *   Middelwares
+ */
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -13,10 +15,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-// Importo las rutas del Usuario
-app.use(require('./routes/usuario'));
+// Configuracion global de Rutas
+app.use(require('./routes/index'));
 
-app.get('/', function(req, res) {
+
+// Ruta principal del proyecto
+app.get('/', (req, res) => {
     res.send('Mandanga Style');
 });
 
