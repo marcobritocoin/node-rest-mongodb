@@ -80,17 +80,17 @@ app.post('/usuario', [tokenVerify, AdminRoleVerify], (req, res) => {
 app.put('/usuario/:id', [tokenVerify, AdminRoleVerify], (req, res) => {
     const id = req.params.id;
 
-    // Validando con la libreria Underscore
+    // Eliminando atributos del Objeto con la libreria Underscore
     const body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']);
 
-    // --> Otra manera NO optima
+    // --> Otra manera NO optima de excluir atributos
     // delete body.password;
     // delete body.google;
 
     // Ver Documentacion mongoose
     Usuario.findByIdAndUpdate(id, body, {
         new: true,
-        runValidators: true
+        runValidators: true // Para validar enum: rolesValidos en el Modelo
     }, (err, usuarioDB) => {
         if (err) {
             return res.status(400).json({
