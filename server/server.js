@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
 
 
 /**
@@ -20,9 +21,13 @@ app.use(require('./routes/index'));
 
 
 // Ruta principal del proyecto
-app.get('/', (req, res) => {
-    res.send('Mandanga Style');
-});
+// app.get('/', (req, res) => {
+//     res.send('Mandanga Style');
+// });
+
+// Habilitar la carpeta Public | el PATH resuelve la ruta correcta
+app.use(express.static(path.resolve(__dirname, '../public')));
+
 
 /**
  *   Conexión con la BBDD de MongoDB con Mongoose

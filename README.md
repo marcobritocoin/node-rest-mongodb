@@ -2,9 +2,16 @@
 
 [Api Rest Nodejs](https://github.com/mbrito2019/node-rest-mongodb) Ejericio práctico de Rest Server.
 
-## Prueba técnica
+## Objetivo del ejercicio
 
-Crear CRUD con NodeJs y desplegarlo en Heroku + MLAB
+Crear CRUD con NodeJs / MongoDb y desplegarlo en Heroku + MLAB
+
+## Ver ONLINE y autenticarse con Google Sign-In
+
+```
+https://restserver-nodejs-mongodb.herokuapp.com/
+```
+
 
 ## EndPoints Heroku:
 
@@ -21,4 +28,10 @@ DELETE   https://restserver-nodejs-mongodb.herokuapp.com/usuario
 
 ```bash
 $ git clone https://github.com/mbrito2019/node-rest-mongodb.git
+```
+
+## Documentación de la API
+
+```
+https://documenter.getpostman.com/view/5272380/TzK2bEoJ
 ```
